@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import "./App.css"
 import Player from "./Components/Player.js"
 import Search from "./Components/Search.js"
+import Genius from "./Components/Genius.js"
 
 const authEndpoint = 'https://accounts.spotify.com/authorize'
 // The unique id for our app registered with Spotify 
@@ -37,6 +38,7 @@ class App extends Component {
           <a href={loginLink}>Login to Spotify</a>
           <Search token={this.state.accessToken} />
           <Player token={this.state.accessToken}/>
+          <Genius />
         </header>
       </div>
     );

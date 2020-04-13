@@ -5,19 +5,24 @@ class Search extends Component {
     constructor() {
         super()
         this.state = {
-            formInput: "",
+            track: "",
+            artist: "",
             // Each song is put into this array, and will be mapped over to create song cards 
             searchResults: []
         }
     }
 
-    updateFormInput = (event) => {
-        this.setState({formInput: event.target.value})
+    updateTrack = (event) => {
+        this.setState({track: event.target.value})
+    }
+
+    updateArtist = (event) => {
+        this.setState({artist: event.target.value})
     }
 
     submitSearch = (event) => {
         event.preventDefault()
-        fetch(`https://api.spotify.com/v1/search?q=name:${this.state.formInput}&type=track`, {
+        fetch(`https://api.spotify.com/v1/search?q=track:${this.state.track}%20artist:${this.state.artist}&type=track`, {
             headers: {
                 "Authorization": "Bearer " + this.props.token
             }
@@ -25,7 +30,7 @@ class Search extends Component {
             resp => resp.json()
         ).then(
             data => this.setState({searchResults: data.tracks.items})
-        )
+        ) 
     }
 
     // In order get immediate song playback when the user clicks the song card, you have to get a little sneaky. 
@@ -56,7 +61,10 @@ class Search extends Component {
     render() {
         return(
             <form>
-                <input type="text" onChange={this.updateFormInput}></input>
+                <label>Track: </label>
+                <input type="text" onChange={this.updateTrack}></input>
+                <label>Artist: </label>
+                <input type="text" onChange={this.updateArtist}></input>
                 <input type="submit" onClick={this.submitSearch}></input>
                 {this.state.searchResults.map(result => {
                     return( 
