@@ -6,6 +6,8 @@ const redirectUri = "http://localhost:3000"
 const scopes = "me"
 const link = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes}&state=test&response_type=token`
 const fetchUrl = `http://localhost:3000/get_song`
+const song = "Hello"
+const artist = "Adele"
 
 class Genius extends Component {
     
@@ -19,7 +21,7 @@ class Genius extends Component {
     
    
     getSong = () => {
-        fetch(`${fetchUrl}`).then(
+        fetch(`${fetchUrl}?song=${song}&artist=${artist}`).then(
             resp => resp.json()
         ).then(
             data => console.log(data)
@@ -32,8 +34,6 @@ class Genius extends Component {
             <div>
                 <a href={link}>Login to Genius</a>
                 <div onClick={this.getSong}>Get a song</div>
-                <script type="module" src="https://unpkg.com/x-frame-bypass"></script>
-                <iframe is="x-frame-bypass" src="https://genius.com/Adele-hello-lyrics"></iframe>
             </div>
         )
     }
