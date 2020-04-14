@@ -20,21 +20,7 @@ const scopes = [
 const loginLink = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`
 
 class App extends Component {
-  
-  // if successfully logged in, changes the currentUser to user obj
-  updateCurrentUser = user => {
-    this.setState({
-      currentUser: user  
-    })
-  }
 
-  // clears currentUser in order to log out
-  logOut = () => {
-    this.setStaet({
-      currentUser: null
-    })
-  }
-  
   constructor() {
     super();
     this.state = {
@@ -48,6 +34,20 @@ class App extends Component {
       songData: {},
       currentUser: null
     }
+  }
+
+  // if successfully logged in, changes the currentUser to user obj
+  updateCurrentUser = user => {
+    this.setState({
+      currentUser: user  
+    })
+  }
+
+  // clears currentUser in order to log out
+  logOut = () => {
+    this.setStaet({
+      currentUser: null
+    })
   }
 
   getCurrentlyPlaying = () => {
@@ -68,14 +68,17 @@ class App extends Component {
     return (
       <div className="App">
         <LoginForm updateCurrentUser={this.updateCurrentUser}/>
+        {
+          //rest of the components below should only load if currentUser is not null
+        }
         <header className="App-header">
           <a href={loginLink}>Login to Spotify</a>
-          <Search token={this.state.accessToken} />
+          <Search token={this.state.accessToken}/>
           <Player token={this.state.accessToken} showPlayer={this.state.showPlayer} songData={this.state.songData} getCurrentlyPlaying={this.getCurrentlyPlaying}/>
           <Genius currentSong={this.state.currentSong} />
         </header>
       </div>
-    );
+    )
   }
 }
 
