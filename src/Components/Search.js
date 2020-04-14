@@ -49,7 +49,11 @@ class Search extends Component {
         headers: {
                 "Authorization": "Bearer " + this.props.token
             }
-        }).then(this.next)
+        }).then(
+            this.next
+        ).then(
+            this.props.goToPlayer()
+        )
     }
     
     render() {

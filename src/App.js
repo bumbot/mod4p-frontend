@@ -61,11 +61,15 @@ class App extends Component {
   getSearch = () => {
     return(
       <div>
-        <Search token={this.state.accessToken}/>
+        <Search token={this.state.accessToken} goToPlayer={this.goToPlayer}/>
         <br />
         <NavLink to="/" exact>Go back</NavLink>
       </div>
     )
+  }
+
+  goToPlayer = () => {
+    console.log('working')
   }
 
   getPlayer = () => {
