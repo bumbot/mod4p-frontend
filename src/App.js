@@ -23,6 +23,16 @@ const loginLink = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirect
 
 class App extends Component {
   
+  constructor() {
+    super();
+    this.state = {
+      accessToken: window.location.hash.substring(14),
+      showPlayer: false,
+      songData: {},
+      currentUser: null
+    }
+  }
+
   // if successfully logged in, changes the currentUser to user obj
   updateCurrentUser = user => {
     this.setState({
@@ -35,16 +45,6 @@ class App extends Component {
     this.setStaet({
       currentUser: null
     })
-  }
-  
-  constructor() {
-    super();
-    this.state = {
-      accessToken: window.location.hash.substring(14),
-      showPlayer: false,
-      songData: {},
-      currentUser: null
-    }
   }
 
   getCurrentlyPlaying = () => {
@@ -61,17 +61,7 @@ class App extends Component {
     )
   }
 
-  getSpotifyLogin = () => {
-    return(
-      <div>
-        <a href={loginLink}>Login to Spotify</a>
-        <br />
-        <NavLink to="/player" exact>Go to player</NavLink>
-        <br />
-        <NavLink to="/search" exact>Got to search</NavLink>
-      </div>
-    )
-  }
+ 
 
   getSearch = () => {
     return(
@@ -97,32 +87,36 @@ class App extends Component {
     )
   }
 
+  getLogin = () => {
+    return(
+      <div>
+        <LoginForm updateCurrentUser={this.updateCurrentUser}/>
+        <a href={loginLink}>Login to Spotify</a>
+        <br />
+        <NavLink to="/player" exact>Go to player</NavLink>
+        <br />
+        <NavLink to="/search" exact>Got to search</NavLink>
+      </div>
+    )
+  }
+
   render() {
     return (
-<<<<<<< HEAD
-      <Router>
-        <div className="App">
-          <header className="App-header">
-            <Route exact path="/" render={() => this.getSpotifyLogin()} />
-            <Route exact path="/search" render={() => this.getSearch() } />
-            <Route exact path="/player" render={() => this.getPlayer() } />
-          </header>
-        </div>
-      </Router>
-    )
-=======
       <div className="App">
-        <LoginForm updateCurrentUser={this.updateCurrentUser}/>
-        <header className="App-header">
-          <a href={loginLink}>Login to Spotify</a>
-          <Search token={this.state.accessToken} />
-          <Player token={this.state.accessToken} showPlayer={this.state.showPlayer} songData={this.state.songData} getCurrentlyPlaying={this.getCurrentlyPlaying}/>
-          <Genius currentSong={this.state.currentSong} />
-        </header>
+        <Router>
+          <div className="App">
+            <header className="App-header">
+              <Route exact path="/" render={() => this.getLogin()} />
+              <Route exact path="/search" render={() => this.getSearch() } />
+              <Route exact path="/player" render={() => this.getPlayer() } />
+            </header>
+          </div>
+        </Router>
       </div>
-    );
->>>>>>> 88876d5550943d65d94bce2e2e8d9db964b73c34
+    )
   }
 }
 
 export default App;
+
+
