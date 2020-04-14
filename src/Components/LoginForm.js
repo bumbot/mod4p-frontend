@@ -3,29 +3,42 @@ import React, { Component } from "react"
 class LoginForm extends Component {
     state = {
         username: "",
+        password: "",
     }
 
-    handleChange = (event, {name, value}) => {
+    handleUsernameChange = (event) => {
         this.setState({
-            [name]: value
+            username: event.target.value
         })
     }
 
-    handleLogin = () => {
-        fetch("http://localhost:3001/login", {
+    handlePasswordChange = (event) => {
+        this.setState({
+            password: event.target.value
+        })
+    }
+
+    handleLogin = (event) => {
+        event.preventDefault()
+
+        fetch("http://localhost:3000/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
             body: JSON.stringify({
-                username: this.state.username
+                username: this.state.username,
+                password: this.state.password
             })
         })
         .then(resp => resp.json())
         .then( json => {
+            console.log(json)
             if (json.error) {
                 alert(json.message)
+            } else {
+                this.props.updateCurrentUser(json.user_data)
             }
     })
     }
@@ -33,36 +46,22 @@ class LoginForm extends Component {
     render() {
         return(
             <div>
-                <Form
-          onSubmit={this.handleLoginSubmit}
-          size="mini"
-          key="mini"
-          loading={this.props.authenticatingUser}
-          error={this.props.failedLogin}
-        >
-          <Message
-            error
-            header={this.props.failedLogin ? this.props.error : null}
-          />
-          <Form.Group widths="equal">
-            <Form.Input
-              label="username"
-              placeholder="username"
-              name="username"
-              onChange={this.handleChange}
-              value={this.state.username}
-            />
-            <Form.Input
-              type="password"
-              label="password"
-              placeholder="password"
-              name="password"
-              onChange={this.handleChange}
-              value={this.state.password}
-            />
-          </Form.Group>
-          <Button type="submit">Login</Button>
-        </Form>
+                <form onSubmit={this.handleLogin}>
+                    <label for="username">Username:</label>
+                    <input
+                    type="text"
+                    name="username"
+                    onChange={event=>this.handleUsernameChange(event)}
+                    ></input>
+                    <br></br>
+                    <label for="password">Password:</label>
+                    <input
+                    type="text"
+                    name="password"
+                    onChange={event=>this.handlePasswordChange(event)}
+                    ></input>
+                    <input type="submit"></input>
+                </form>
             </div>
         )
     }
