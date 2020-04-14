@@ -19,7 +19,9 @@ class LoginForm extends Component {
     }
 
     handleLogin = (event) => {
+        // prevents a refresh of the page and clears form
         event.preventDefault()
+        event.target.reset()
 
         fetch("http://localhost:3000/login", {
             method: "POST",
@@ -34,7 +36,6 @@ class LoginForm extends Component {
         })
         .then(resp => resp.json())
         .then( json => {
-            console.log(json)
             if (json.error) {
                 alert(json.message)
             } else {
