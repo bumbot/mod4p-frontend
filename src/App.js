@@ -29,7 +29,24 @@ class App extends Component {
       // Every fetch call to the Spotify API will need this token as part of its header 
       // Tokens expire after 1 hour 
       accessToken: window.location.hash.substring(14),
+      currentSong: {song: "No Brainer", artist: "Ashnikko"},
+      showPlayer: false,
+      songData: {}
     }
+  }
+
+  getCurrentlyPlaying = () => {
+    fetch("https://api.spotify.com/v1/me/player", {
+      headers: {
+        "Authorization": "Bearer " + this.state.accessToken
+      }
+    }).then(
+      resp => resp.json()
+    ).then(
+      data => {
+        this.setState({showPlayer: true, songData: data, currentSong:{song: data.item.name, artist: data.item.artists[0].name}})
+      }
+    )
   }
 
   render() {
@@ -39,8 +56,8 @@ class App extends Component {
         <header className="App-header">
           <a href={loginLink}>Login to Spotify</a>
           <Search token={this.state.accessToken} />
-          <Player token={this.state.accessToken}/>
-          <Genius />
+          <Player token={this.state.accessToken} showPlayer={this.state.showPlayer} songData={this.state.songData} getCurrentlyPlaying={this.getCurrentlyPlaying}/>
+          <Genius currentSong={this.state.currentSong} />
         </header>
       </div>
     );
