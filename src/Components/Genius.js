@@ -6,25 +6,22 @@ const redirectUri = "http://localhost:3000"
 const scopes = "me"
 const link = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes}&state=test&response_type=token`
 const fetchUrl = `http://localhost:3000/get_song`
-const song = "Hello"
-const artist = "Adele"
 
 class Genius extends Component {
     
     constructor() {
         super()
         this.state = {
-            responseToken: window.location.hash.substring(14, 78),
-            appToken: "6xaKmzdn43cIetHEmyoLhy3Y9gjeHFdWYVGDy-mQwpNWNGXz3UyKqTRksFHgKra9"
+            lyrics: "Lyrics go here"
         }
     }
     
    
-    getSong = () => {
-        fetch(`${fetchUrl}?song=${song}&artist=${artist}`).then(
+    getSong = (event) => {
+        fetch(`${fetchUrl}?song=${this.props.currentSong["song"]}&artist=${this.props.currentSong["artist"]}`).then(
             resp => resp.json()
         ).then(
-            data => console.log(data)
+            data => this.setState({lyrics: data["lyrics"]})
         )
     }
     
@@ -32,8 +29,8 @@ class Genius extends Component {
     render() {
         return(
             <div>
-                <a href={link}>Login to Genius</a>
                 <div onClick={this.getSong}>Get a song</div>
+                <div>{this.state.lyrics}</div>
             </div>
         )
     }
