@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import "./Genius.css"
 
 const authEndpoint = 'https://api.genius.com/oauth/authorize'
 const clientId = "msZLD8ONdsunFPEz1p6cbxgoAeJfZa_Ou9zQpCGcEFOUNSIgbXSI-bpLUjukJlLb"
@@ -28,7 +29,7 @@ class Genius extends Component {
         return(
             <div>
                 <div onClick={this.getSongLyrics}>Get lyrics</div>
-                <div>{this.state.lyrics}</div>
+                <div className="preformatted">{this.state.lyrics}</div>
             </div>
         )
     }

@@ -62,28 +62,26 @@ class App extends Component {
     )
   }
 
- 
-
   getSearch = () => {
     return(
       <div>
         <Search token={this.state.accessToken} goToPlayer={this.goToPlayer}/>
-        <br />
-        <NavLink to="/" exact>Go back</NavLink>
       </div>
     )
   }
 
-  goToPlayer = () => {
-    console.log('working')
-  }
-
-  getPlayer = () => {
+  getPlayerLyrics = () => {
     return(
       <div>
-        <Player token={this.state.accessToken} showPlayer={this.state.showPlayer} songData={this.state.songData} getCurrentlyPlaying={this.getCurrentlyPlaying}/>
-        <Genius songData={this.state.songData} /> 
-        <NavLink to="/" exact>Go back</NavLink>
+        <div className="float-left">
+          <Player token={this.state.accessToken} showPlayer={this.state.showPlayer} songData={this.state.songData} getCurrentlyPlaying={this.getCurrentlyPlaying}/>
+        </div>
+        <div className="float-right">
+          <Genius songData={this.state.songData} /> 
+        </div>
+        <div>
+          <NavLink to="/" exact>Go back</NavLink>
+        </div>
       </div>
     )
   }
@@ -109,7 +107,7 @@ class App extends Component {
             <header className="App-header">
               <Route exact path="/" render={() => this.getLogin()} />
               <Route exact path="/search" render={() => this.getSearch() } />
-              <Route exact path="/player" render={() => this.getPlayer() } />
+              <Route exact path="/player" render={() => this.getPlayerLyrics() } />
             </header>
           </div>
         </Router>
