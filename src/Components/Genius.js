@@ -15,21 +15,19 @@ class Genius extends Component {
             lyrics: "Lyrics go here"
         }
     }
-    
    
-    getSong = (event) => {
-        fetch(`${fetchUrl}?song=${this.props.currentSong["song"]}&artist=${this.props.currentSong["artist"]}`).then(
+    getSongLyrics = (event) => {
+        fetch(`${fetchUrl}?song=${this.props.songData.item.name}&artist=${this.props.songData.item.artists[0].name}`).then(
             resp => resp.json()
         ).then(
             data => this.setState({lyrics: data["lyrics"]})
         )
     }
     
-    
     render() {
         return(
             <div>
-                <div onClick={this.getSong}>Get a song</div>
+                <div onClick={this.getSongLyrics}>Get lyrics</div>
                 <div>{this.state.lyrics}</div>
             </div>
         )

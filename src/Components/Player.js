@@ -3,10 +3,6 @@ import "./Player.css"
 
 class Player extends Component {
 
-    
-    
-    // Playback methods rely on the parent elemnent id to avoid repetition 
-
     playPause = (event) => {
         fetch(`https://api.spotify.com/v1/me/player/${event.target.id}`, {
           method: "PUT",

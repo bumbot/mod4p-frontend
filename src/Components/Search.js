@@ -32,12 +32,6 @@ class Search extends Component {
             data => this.setState({searchResults: data.tracks.items})
         ) 
     }
-
-    // In order get immediate song playback when the user clicks the song card, you have to get a little sneaky. 
-    // First you have to grab the song uri (which is set as its div id when it's created)
-    // Then you have to add that song to the Play Queue with a POST request 
-    // Finally you have to command the player to go to the next song (which is the song we just put in the queue)
-    // This allows immediate playback of any song clicked on the page
     
     next = () => {
         fetch("https://api.spotify.com/v1/me/player/next", {
