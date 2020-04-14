@@ -1,4 +1,6 @@
 import React, { Component } from "react"
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
 import "./App.css"
 import Player from "./Components/Player.js"
 import Search from "./Components/Search.js"
@@ -15,6 +17,9 @@ const scopes = [
   "user-modify-playback-state"
 ]
 const loginLink = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`
+
+
+
 
 class App extends Component {
   
@@ -41,17 +46,49 @@ class App extends Component {
     )
   }
 
+  getSpotifyLogin = () => {
+    return(
+      <div>
+        <a href={loginLink}>Login to Spotify</a>
+        <br />
+        <NavLink to="/player" exact>Go to player</NavLink>
+        <br />
+        <NavLink to="/search" exact>Got to search</NavLink>
+      </div>
+    )
+  }
+
+  getSearch = () => {
+    return(
+      <div>
+        <Search token={this.state.accessToken}/>
+        <br />
+        <NavLink to="/" exact>Go back</NavLink>
+      </div>
+    )
+  }
+
+  getPlayer = () => {
+    return(
+      <div>
+        <Player token={this.state.accessToken} showPlayer={this.state.showPlayer} songData={this.state.songData} getCurrentlyPlaying={this.getCurrentlyPlaying}/>
+        <Genius songData={this.state.songData} /> 
+        <NavLink to="/" exact>Go back</NavLink>
+      </div>
+    )
+  }
+
   render() {
     return (
-      <div className="App">
-        {/* <LoginForm /> */}
-        <header className="App-header">
-          <a href={loginLink}>Login to Spotify</a>
-          <Search token={this.state.accessToken} />
-          <Player token={this.state.accessToken} showPlayer={this.state.showPlayer} songData={this.state.songData} getCurrentlyPlaying={this.getCurrentlyPlaying}/>
-          <Genius songData={this.state.songData} />
-        </header>
-      </div>
+      <Router>
+        <div className="App">
+          <header className="App-header">
+            <Route exact path="/" render={() => this.getSpotifyLogin()} />
+            <Route exact path="/search" render={() => this.getSearch() } />
+            <Route exact path="/player" render={() => this.getPlayer() } />
+          </header>
+        </div>
+      </Router>
     )
   }
 }
