@@ -21,6 +21,20 @@ const loginLink = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirect
 
 class App extends Component {
   
+  // if successfully logged in, changes the currentUser to user obj
+  updateCurrentUser = user => {
+    this.setState({
+      currentUser: user  
+    })
+  }
+
+  // clears currentUser in order to log out
+  logOut = () => {
+    this.setStaet({
+      currentUser: null
+    })
+  }
+  
   constructor() {
     super();
     this.state = {
@@ -29,13 +43,16 @@ class App extends Component {
       // Every fetch call to the Spotify API will need this token as part of its header 
       // Tokens expire after 1 hour 
       accessToken: window.location.hash.substring(14),
+      currentUser: null
     }
   }
+
+  
 
   render() {
     return (
       <div className="App">
-        <LoginForm />
+        <LoginForm updateCurrentUser={this.updateCurrentUser}/>
         <header className="App-header">
           <a href={loginLink}>Login to Spotify</a>
           <Search token={this.state.accessToken} />
