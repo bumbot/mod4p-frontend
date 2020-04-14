@@ -1,3 +1,22 @@
+Bootstrap allows you to set up very responsive/fluid grids.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://getbootstrap.com/docs/3.3/css/#overview
+http://docs.bootstrap-ui.com/index.html
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

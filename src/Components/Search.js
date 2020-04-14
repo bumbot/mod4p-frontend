@@ -66,6 +66,7 @@ class Search extends Component {
                 <label>Artist: </label>
                 <input type="text" onChange={this.updateArtist}></input>
                 <input type="submit" onClick={this.submitSearch}></input>
+                <div className="gallery">
                 {this.state.searchResults.map(result => {
                     return( 
                         <div onClick={this.playSong} id={result.uri}>
@@ -74,6 +75,7 @@ class Search extends Component {
                         </div>
                     )
                 })}
+                </div>
             </form>
         )
     }

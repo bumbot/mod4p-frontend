@@ -3,12 +3,13 @@ import "./App.css"
 import Player from "./Components/Player.js"
 import Search from "./Components/Search.js"
 import Genius from "./Components/Genius.js"
+import LoginForm from "./Components/LoginForm.js"
 
 const authEndpoint = 'https://accounts.spotify.com/authorize'
 // The unique id for our app registered with Spotify 
 const clientId = "8836102077dc476b87b683e9fbcd411a"
 // Where to return after the user has logged into their Spotify account
-const redirectUri = "http://localhost:3000"
+const redirectUri = "http://localhost:3001"
 // The scope is the set of permissions the user gives our app
 const scopes = [
   "user-read-currently-playing",
@@ -27,13 +28,14 @@ class App extends Component {
       // The substring method allows us to ignore the #access_token= in the url and just gets the token itself
       // Every fetch call to the Spotify API will need this token as part of its header 
       // Tokens expire after 1 hour 
-      accessToken: window.location.hash.substring(14)
+      accessToken: window.location.hash.substring(14),
     }
   }
 
   render() {
     return (
       <div className="App">
+        <LoginForm />
         <header className="App-header">
           <a href={loginLink}>Login to Spotify</a>
           <Search token={this.state.accessToken} />
