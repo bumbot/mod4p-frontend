@@ -30,7 +30,8 @@ class App extends Component {
       showPlayer: false,
       songData: {},
       currentUser: null,
-      lyrics: "..."
+      lyrics: "...",
+      songUrl: "http://example.com"
     }
   }
 
@@ -63,7 +64,10 @@ class App extends Component {
     ).then(() => fetch(`http://localhost:3000/get_song?song=${this.state.songData.item.name}&artist=${this.state.songData.item.artists[0].name}`)).then(
       resp => resp.json()
     ).then(
-      data => this.setState({lyrics: data["lyrics"]})
+      data => {
+        debugger
+        this.setState({lyrics: data["lyrics"], songUrl: data["website"]})
+      }
     )
   }
 
@@ -83,7 +87,7 @@ class App extends Component {
           <Player token={this.state.accessToken} showPlayer={this.state.showPlayer} songData={this.state.songData} getCurrentlyPlaying={this.getCurrentlyPlaying}/>
         </div>
         <div className="float-right lyrics-css">
-          <Genius songData={this.state.songData} lyrics={this.state.lyrics}/> 
+          <Genius songData={this.state.songData} lyrics={this.state.lyrics} songUrl={this.state.songUrl}/> 
         </div>
       </div>
     )
