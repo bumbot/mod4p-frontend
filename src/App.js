@@ -72,15 +72,13 @@ class App extends Component {
 
   getPlayerLyrics = () => {
     return(
-      <div>
-        <div className="float-left">
+      <div className="">
+        <div className="float-left player-css">
+          <NavLink to="/" exact>Go back</NavLink>
           <Player token={this.state.accessToken} showPlayer={this.state.showPlayer} songData={this.state.songData} getCurrentlyPlaying={this.getCurrentlyPlaying}/>
         </div>
-        <div className="float-right">
+        <div className="float-right lyrics-css">
           <Genius songData={this.state.songData} /> 
-        </div>
-        <div>
-          <NavLink to="/" exact>Go back</NavLink>
         </div>
       </div>
     )

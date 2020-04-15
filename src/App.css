@@ -41,3 +41,32 @@ input {
   background-color: black;
   color: white;
 }
+
+img {
+  height: 360px;
+  width: 360px;
+}
+
+.lyrics-css {
+  width: 1000px;
+  height: 725px;
+  overflow-x: scroll;
+  overflow-y: scroll;
+}
+
+.player-css {
+  width: 360px;
+  height: 400px;
+}
+
+.preformatted {
+  white-space: pre;
+}
+
+.get-lyrics {
+  color: yellow;
+}
+
+.get-song {
+  color: yellow;
+}

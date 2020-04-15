@@ -52,8 +52,6 @@ class Search extends Component {
             }
         }).then(
             this.next
-        ).then(
-            this.props.goToPlayer()
         )
     }
     

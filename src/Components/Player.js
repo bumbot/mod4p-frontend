@@ -23,7 +23,7 @@ class Player extends Component {
     render() {
         return(
             <div>
-                <p onClick={this.props.getCurrentlyPlaying}>Current Song</p>
+                <p className="get-song" onClick={this.props.getCurrentlyPlaying}>Get Song</p>
                 {this.props.showPlayer ? 
                     <div>
                         <div>
