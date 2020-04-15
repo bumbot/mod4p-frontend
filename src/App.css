@@ -24,6 +24,11 @@
   color: white;
 }
 
+.search-text {
+  color: #282c34;
+  display: flex;
+}
+
 .App-link {
   color: #61dafb;
 }
