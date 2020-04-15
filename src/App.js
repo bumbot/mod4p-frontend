@@ -65,7 +65,6 @@ class App extends Component {
       resp => resp.json()
     ).then(
       data => {
-        debugger
         this.setState({lyrics: data["lyrics"], songUrl: data["website"]})
       }
     )
@@ -75,18 +74,19 @@ class App extends Component {
     return(
       <div>
         <Search token={this.state.accessToken} goToPlayer={this.goToPlayer}/>
+        <NavLink to="/" exact>Go back</NavLink>
       </div>
     )
   }
 
   getPlayerLyrics = () => {
     return(
-      <div className="">
-        <div className="float-left player-css">
+      <div className="container-fluid">
+        <div className="pull-left player-css">
           <NavLink to="/" exact>Go back</NavLink>
           <Player token={this.state.accessToken} showPlayer={this.state.showPlayer} songData={this.state.songData} getCurrentlyPlaying={this.getCurrentlyPlaying}/>
         </div>
-        <div className="float-right lyrics-css">
+        <div className="pull-right lyrics-css">
           <Genius songData={this.state.songData} lyrics={this.state.lyrics} songUrl={this.state.songUrl}/> 
         </div>
       </div>

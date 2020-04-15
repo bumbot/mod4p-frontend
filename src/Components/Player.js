@@ -34,10 +34,10 @@ class Player extends Component {
                           <div>{this.props.songData.is_playing ? "Playing" : "Paused"}</div>
                         </div>
                         <div>
-                          <button onClick={this.previousNext} id="previous">Previous</button>
-                          <button onClick={this.playPause} id="play">Play</button>
-                          <button onClick={this.playPause} id="pause">Pause</button>
-                          <button onClick={this.previousNext} id="next">Next</button>
+                          <button onClick={this.previousNext} style={{color: "black"}} id="previous">Previous</button>
+                          <button onClick={this.playPause} style={{color: "black"}} id="play">Play</button>
+                          <button onClick={this.playPause} style={{color: "black"}} id="pause">Pause</button>
+                          <button onClick={this.previousNext} style={{color: "black"}} id="next">Next</button>
                         </div>
                       </div>
                   </div>
