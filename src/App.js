@@ -29,7 +29,9 @@ class App extends Component {
       accessToken: window.location.hash.substring(14),
       showPlayer: false,
       songData: {},
-      currentUser: null
+      currentUser: null,
+      lyrics: "...",
+      songUrl: "http://example.com"
     }
   }
 
@@ -59,31 +61,34 @@ class App extends Component {
       data => {
         this.setState({showPlayer: true, songData: data})
       }
+    ).then(() => fetch(`http://localhost:3000/get_song?song=${this.state.songData.item.name}&artist=${this.state.songData.item.artists[0].name}`)).then(
+      resp => resp.json()
+    ).then(
+      data => {
+        debugger
+        this.setState({lyrics: data["lyrics"], songUrl: data["website"]})
+      }
     )
   }
-
- 
 
   getSearch = () => {
     return(
       <div>
         <Search token={this.state.accessToken} goToPlayer={this.goToPlayer}/>
-        <br />
-        <NavLink to="/" exact>Go back</NavLink>
       </div>
     )
   }
 
-  goToPlayer = () => {
-    console.log('working')
-  }
-
-  getPlayer = () => {
+  getPlayerLyrics = () => {
     return(
-      <div>
-        <Player token={this.state.accessToken} showPlayer={this.state.showPlayer} songData={this.state.songData} getCurrentlyPlaying={this.getCurrentlyPlaying}/>
-        <Genius songData={this.state.songData} /> 
-        <NavLink to="/" exact>Go back</NavLink>
+      <div className="">
+        <div className="float-left player-css">
+          <NavLink to="/" exact>Go back</NavLink>
+          <Player token={this.state.accessToken} showPlayer={this.state.showPlayer} songData={this.state.songData} getCurrentlyPlaying={this.getCurrentlyPlaying}/>
+        </div>
+        <div className="float-right lyrics-css">
+          <Genius songData={this.state.songData} lyrics={this.state.lyrics} songUrl={this.state.songUrl}/> 
+        </div>
       </div>
     )
   }
@@ -109,7 +114,7 @@ class App extends Component {
             <header className="App-header">
               <Route exact path="/" render={() => this.getLogin()} />
               <Route exact path="/search" render={() => this.getSearch() } />
-              <Route exact path="/player" render={() => this.getPlayer() } />
+              <Route exact path="/player" render={() => this.getPlayerLyrics() } />
             </header>
           </div>
         </Router>
